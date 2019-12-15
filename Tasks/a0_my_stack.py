@@ -11,6 +11,7 @@ def push(elem: Any) -> None:
 	:param elem: element to be pushed
 	:return: Nothing
 	"""
+	global my_stack
 	my_stack.append(elem)
 	print(elem)
 	return None
@@ -22,6 +23,7 @@ def pop() -> Any:
 
 	:return: popped element
 	"""
+	global my_stack
 	pop_elem = my_stack[-1]
 	del my_stack[-1]
 	return pop_elem
@@ -36,6 +38,7 @@ def peek(ind: int = 0) -> Any:
 	:return: peeked element
 	"""
 	# print(ind)
+	global my_stack
 	if ind > len(my_stack):
 		print('overflow')
 	else:
@@ -48,17 +51,20 @@ def clear() -> None:
 
 	:return: None
 	"""
+	global my_stack
 	my_stack = []
 	return None
 
 
 if __name__ == '__main__':
-	my_stack = [1, 2]
-	push(3)
-	print(my_stack)
-	print(pop())
-	print(my_stack)
-	print(peek(0))
-	print(peek(1))
-	print(peek(10))
+	import sys
+	print(sys.path)
+	# my_stack = [1, 2]
+	# push(3)
+	# print(my_stack)
+	# print(pop())
+	# print(my_stack)
+	# print(peek(0))
+	# print(peek(1))
+	# print(peek(10))
 
