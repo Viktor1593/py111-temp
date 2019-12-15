@@ -24,9 +24,12 @@ def pop() -> Any:
 	:return: popped element
 	"""
 	global my_stack
-	pop_elem = my_stack[-1]
-	del my_stack[-1]
-	return pop_elem
+	if(len(my_stack) == 0):
+		return None
+	else:
+		pop_elem = my_stack[-1]
+		del my_stack[-1]
+		return pop_elem
 
 
 
