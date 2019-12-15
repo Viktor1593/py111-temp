@@ -59,6 +59,7 @@ def clear() -> None:
 if __name__ == '__main__':
 	import sys
 	print(sys.path)
+	# s
 	# my_stack = [1, 2]
 	# push(3)
 	# print(my_stack)
