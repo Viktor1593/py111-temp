@@ -20,20 +20,27 @@ def push(elem: Any) -> None:
 
 
 def pop() -> Any:
-    """
-    Pop element from the top of the stack
+  """
+  Pop element from the top of the stack
+	:param elem: element to be pushed
+	:return: Nothing
+	"""
+	global my_stack
+	my_stack.append(elem)
+	print(elem)
+	return None
 
-    :return:
-    """
-    global my_stack
-    if len(my_stack) == 0:
-        # print(None)
-        return None
-    else:
-        pop_elem = my_stack[-1]
-        del my_stack[-1]
-        # print(pop_elem)
-        return pop_elem
+
+def pop() -> Any:
+	"""
+	Pop element from the top of the stack
+
+	:return: popped element
+	"""
+	global my_stack
+	pop_elem = my_stack[-1]
+	del my_stack[-1]
+	return pop_elem
 
 
 def peek(ind: int = 0) -> Any:
@@ -72,4 +79,3 @@ if __name__ == '__main__':
     #     pop()
     clear()
     print(my_stack)
-
