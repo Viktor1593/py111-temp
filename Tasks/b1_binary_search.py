@@ -1,6 +1,7 @@
 from typing import Any, Sequence, Optional
 
 import numpy
+import time
 
 
 def binary_search(elem: Any, arr: Sequence) -> Optional[int]:
@@ -12,11 +13,12 @@ def binary_search(elem: Any, arr: Sequence) -> Optional[int]:
     :return: Index of element if it's presented in the arr, None otherwise
     """
 
-    print(elem, arr)
+    # print(elem, arr)
+
     l = 0
     h = len(arr)-1
     while l <= h:
-        print(l, h, sep=': ')
+        # print(l, h, sep=': ')
         mid = (l + h) // 2
         if elem < arr[mid]:
             h = mid - 1
@@ -27,16 +29,27 @@ def binary_search(elem: Any, arr: Sequence) -> Optional[int]:
     return None
 
 
-if __name__ == '__main__':
-    n = 125
-    arr = []
-    for i in range(n):
-        arr.append(numpy.random.randint(i, n))
-    arr = numpy.unique(arr)
-    arr = numpy.sort(arr)
+def find_elem(find_elem, array):
+    for i, elem in enumerate(array):
+        if elem == find_elem:
+            return i
 
-    # arr = list(range(100))
-    # array = numpy.arange(n)
-    # numpy.random.shuffle(array)
-    # print(arr)
-    print('found: ', binary_search(99, arr))
+    return None
+if __name__ == '__main__':
+    ns = [10, 100, 1000, 10000, 100000]
+    for n in ns:
+        arr = []
+        for i in range(n):
+            arr.append(numpy.random.randint(0, n))
+        arr = numpy.unique(arr)
+        st = time.time()
+        arr = numpy.sort(arr)
+        to_search = numpy.random.randint(0, n)
+        print('found: ', binary_search(to_search, arr))
+        print(time.time() - st)
+
+
+        st = time.time()
+        print('found: ', find_elem(to_search, arr))
+        print(time.time() - st)
+
