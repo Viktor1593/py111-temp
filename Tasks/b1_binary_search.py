@@ -49,6 +49,10 @@ if __name__ == '__main__':
         print(time.time() - st)
 
 
+        arr = []
+        for i in range(n):
+            arr.append(numpy.random.randint(0, n))
+        arr = numpy.unique(arr)
         st = time.time()
         print('found: ', find_elem(to_search, arr))
         print(time.time() - st)
