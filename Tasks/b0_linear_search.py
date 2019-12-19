@@ -2,7 +2,6 @@
 This module implements some functions based on linear search algo
 """
 from typing import Sequence
-import random
 
 import numpy
 
@@ -29,5 +28,8 @@ if __name__ == '__main__':
     n = 1000
     array = numpy.arange(n)
     numpy.random.shuffle(array)
-    print(find_elem(50, array))
+    for _ in range(5):
+        fe = numpy.random.choice(array)
+        print(fe, end=': ')
+        print(find_elem(fe, array))
 
