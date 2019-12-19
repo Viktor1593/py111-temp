@@ -18,17 +18,16 @@ def min_search(arr: Sequence) -> int:
 
 
 def find_elem(find_elem, array):
-    index = None
-    for i in array:
-        if array[i] == find_elem:
-            index = i
-            break
+    for i, elem in enumerate(array):
+        if elem == find_elem:
+            return i
 
-    return index
+    return None
 
 
 if __name__ == '__main__':
     n = 1000
-    array = np.arange(n)
-    np.random.shuffle(array)
+    array = numpy.arange(n)
+    numpy.random.shuffle(array)
+    print(find_elem(50, array))
 
