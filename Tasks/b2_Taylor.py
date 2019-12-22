@@ -19,8 +19,8 @@ def ex(x: Union[int, float], delta = 0.0001) -> float:
     n = 1
     res = (-1)**n * (x ** n) / math.factorial(n)
     while abs(res) > delta:
-        res_s += (-1)**n * (x ** n) / math.factorial(n)
-        #res_s += res
+        #res_s += (-1)**n * (x ** n) / math.factorial(n)
+        res_s += res
         res = (-1)**n * (x ** n) / math.factorial(n)
         n += 1
 
