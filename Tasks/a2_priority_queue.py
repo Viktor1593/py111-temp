@@ -24,6 +24,18 @@ def enqueue(elem: Any, priority: int = 0) -> None:
 	my_prio_queue[priority].append(elem)
 	return None
 
+def get_max_prio():
+	global my_prio_queue
+	p = None
+	for p_i, q in enumerate(my_prio_queue):
+		# print(p_i, q, sep = ": ")
+		if len(my_prio_queue[q]) > 0:
+			if p is None:
+				p = q
+			if q < p:
+				p = q
+	return p
+
 
 def dequeue() -> Any:
 	"""
@@ -32,17 +44,12 @@ def dequeue() -> Any:
 	:return: dequeued element
 	"""
 	global my_prio_queue
-	cur_prio = 0
-	
-	for prio in my_prio_queue:
-		if prio > cur_prio and len(my_prio_queue[prio]) > 0:
-			cur_prio = prio
-	if cur_prio in my_prio_queue:
-		if 0 in my_prio_queue[cur_prio]:
-			deq = my_prio_queue[cur_prio][0]
-			del my_prio_queue[cur_prio][0]
-			return deq
-	return None
+	prio = get_max_prio()
+	if prio is None:
+		return None
+	deq = my_prio_queue[prio][0]
+	del my_prio_queue[prio][0]
+	return deq
 
 
 def peek(ind: int = 0, priority: int = 0) -> Any:
@@ -53,9 +60,8 @@ def peek(ind: int = 0, priority: int = 0) -> Any:
 	:return: peeked element
 	"""
 	global my_prio_queue
-	if priority in my_prio_queue:
-		if ind in my_prio_queue[priority]:
-			return my_prio_queue[priority][ind]
+	if priority in my_prio_queue.keys():
+		return my_prio_queue[priority][ind]
 	return None
 
 
