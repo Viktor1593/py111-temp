@@ -33,12 +33,17 @@ def sort(container: Collection[_Tt]) -> Collection[_Tt]:
 	"""
 
 	if len(container) > 1:
+		print("=====")
+		print("common")
 		mid = len(container) // 2
 		left = container[:mid]
 		right = container[mid:]
+		print("split, left container", left)
+		print("split, right container", right)
 
 		sort(left)
 		sort(right)
+		print("merge", left, right)
 		merge(container, left, right)
 	return container
 
