@@ -23,6 +23,21 @@ def sort(container: Collection[_Tt]) -> Collection[_Tt]:
 			low.append(container[i])
 		else:
 			equal.append(container[i])
+	low = sort(low)
+	high = sort(high)
 	return low + equal + high
+
+
+
+if __name__ == '__main__':
+	import random
+	N = 11
+	sorted_list = list(range(N))
+	random.shuffle(sorted_list)
+	sorted_list = [6, 5, 12, 10, 9, 1]
+	# sorted_list = [1, 0, 4, 2, 3]
+	# sorted_list = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+	print(sorted_list)
+	print(sort(sorted_list))
 
 
