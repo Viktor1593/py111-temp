@@ -11,3 +11,6 @@ def sort(container: Collection[_Tt]) -> Collection[_Tt]:
 	:return: container sorted in ascending order
 	"""
 	return container
+
+
+if __name__ == '__main__':
