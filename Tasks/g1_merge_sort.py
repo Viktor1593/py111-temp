@@ -12,16 +12,17 @@ def sort(container: Collection[_Tt]) -> Collection[_Tt]:
 	"""
 	if len(container) <= 1:
 		return container
-	middle =
-
-
-	# 		middle = length(m) / 2
-	# 		for each x in m up to middle
-	# 		add
-	# 		x
-	# 		to
-	# 		left
-	# 	for each x in m after middle
+	middle = len(container) / 2
+	left = sort(container[:middle])
+	right = sort(container[middle + 1:])
+	return left + right
+	# middle = length(m) / 2
+	# 	for each x in m up to middle
+	# 	add
+	# 	x
+	# 	to
+	# 	left
+	# for each x in m after middle
 	# 	add
 	# 	x
 	# 	to
