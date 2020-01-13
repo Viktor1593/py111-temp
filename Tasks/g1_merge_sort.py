@@ -2,8 +2,29 @@ from typing import Collection, TypeVar
 
 _Tt = TypeVar("_Tt")
 
+def merge(container, left, right):
+	i = j = k = 0
+	while i < len(left) and j < len(right):
+		if left[i] < right[j]:
+			container[k] = left[i]
+			i += 1
+		else:
+			container[k] = right[j]
+			j += 1
+		k += 1
 
-def sort(arr: Collection[_Tt]) -> Collection[_Tt]:
+	while i < len(left):
+		container[k] = left[i]
+		i += 1
+		k += 1
+
+	while j < len(right):
+		container[k] = right[j]
+		j += 1
+		k += 1
+	return container
+
+def sort(container: Collection[_Tt]) -> Collection[_Tt]:
 	"""
 	Sort input container with merge sort
 
@@ -11,81 +32,15 @@ def sort(arr: Collection[_Tt]) -> Collection[_Tt]:
 	:return: container sorted in ascending order
 	"""
 
-	if len(arr) > 1:
-		mid = len(arr) // 2
-		left = arr[:mid]
-		right = arr[mid:]
+	if len(container) > 1:
+		mid = len(container) // 2
+		left = container[:mid]
+		right = container[mid:]
 
 		sort(left)
 		sort(right)
-
-		i = j = k = 0
-
-		while i < len(left) and j < len(right):
-			if left[i] < right[j]:
-				arr[k] = left[i]
-				i += 1
-			else:
-				arr[k] = right[j]
-				j += 1
-			k += 1
-
-		while i < len(left):
-			arr[k] = left[i]
-			i += 1
-			k += 1
-
-		while j < len(right):
-			arr[k] = right[j]
-			j += 1
-			k += 1
-	return arr
-	# if len(container) <= 1:
-	# 	return container
-	# middle = len(container) // 2
-	# print(middle)
-	# left = sort(container[:middle])
-	# right = sort(container[middle:])
-	# res = []
-	# i = j = k = 0
-	# res = []
-	# while i < len(left) and j < len(right):
-	# 	if left[i] < right[j]:
-	# 		res.append(left[i])
-	# 		i += 1
-	# 	else:
-	# 		res.append(right[j])
-	# 		j += 1
-	#
-	# 	while i < len(left):
-	# 		res.append(left[i])
-	# 		i += 1
-	# 		k += 1
-	#
-	# 	while j < len(right):
-	# 		res.append(right[j])
-	# 		j += 1
-	# 		k += 1
-	#
-	# return res
-	# middle = length(m) / 2
-	# 	for each x in m up to middle
-	# 	add
-	# 	x
-	# 	to
-	# 	left
-	# for each x in m after middle
-	# 	add
-	# 	x
-	# 	to
-	# 	right
-	#
-	#
-	# left = mergesort(left)
-	# right = mergesort(right)
-	# result = merge(left, right)
-	# return result
-	# return container
+		merge(container, left, right)
+	return container
 
 
 if __name__ == '__main__':
