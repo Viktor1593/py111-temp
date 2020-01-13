@@ -10,6 +10,7 @@ def sort(container: Collection[_Tt]) -> Collection[_Tt]:
 	:param container: container of elements to be sorted
 	:return: container sorted in ascending order
 	"""
+
 	return container
 
 
