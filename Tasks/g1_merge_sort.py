@@ -38,10 +38,9 @@ def sort(container: Collection[_Tt]) -> Collection[_Tt]:
 		mid = len(container) // 2
 		left = container[:mid]
 		right = container[mid:]
-		print("split, left container", left)
-		print("split, right container", right)
-
+		print("split left container", left)
 		sort(left)
+		print("split right container", right)
 		sort(right)
 		print("merge", left, right)
 		merge(container, left, right)
