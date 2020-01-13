@@ -12,33 +12,31 @@ def sort(arr: Collection[_Tt]) -> Collection[_Tt]:
 	"""
 
 	if len(arr) > 1:
-		mid = len(arr) // 2  # Finding the mid of the array
-		L = arr[:mid]  # Dividing the array elements
-		R = arr[mid:]  # into 2 halves
+		mid = len(arr) // 2
+		left = arr[:mid]
+		right = arr[mid:]
 
-		sort(L)  # Sorting the first half
-		sort(R)  # Sorting the second half
+		sort(left)
+		sort(right)
 
 		i = j = k = 0
 
-		# Copy data to temp arrays L[] and R[]
-		while i < len(L) and j < len(R):
-			if L[i] < R[j]:
-				arr[k] = L[i]
+		while i < len(left) and j < len(right):
+			if left[i] < right[j]:
+				arr[k] = left[i]
 				i += 1
 			else:
-				arr[k] = R[j]
+				arr[k] = right[j]
 				j += 1
 			k += 1
 
-		# Checking if any element was left
-		while i < len(L):
-			arr[k] = L[i]
+		while i < len(left):
+			arr[k] = left[i]
 			i += 1
 			k += 1
 
-		while j < len(R):
-			arr[k] = R[j]
+		while j < len(right):
+			arr[k] = right[j]
 			j += 1
 			k += 1
 	return arr
@@ -92,9 +90,10 @@ def sort(arr: Collection[_Tt]) -> Collection[_Tt]:
 
 if __name__ == '__main__':
 	import random
-	N = 4
+	N = 11
 	sorted_list = list(range(N))
 	random.shuffle(sorted_list)
+	sorted_list = [6, 5, 12, 10, 9, 1]
 	# sorted_list = [1, 0, 4, 2, 3]
 	# sorted_list = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 	print(sorted_list)
