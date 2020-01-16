@@ -12,8 +12,16 @@ def min_search(arr: Sequence) -> int:
     :param arr: Array containing numbers
     :return: index of first occurrence of minimal element in array
     """
-    print(arr)
-    return -1
+    min = None
+    mini = -1
+    for i, elem in enumerate(arr):
+        if min is None:
+            min = elem
+            mini = i
+        elif elem < min:
+            min = elem
+            mini = i
+    return mini
 
 
 def find_elem(find_elem, array):
@@ -30,5 +38,4 @@ if __name__ == '__main__':
     numpy.random.shuffle(array)
     for _ in range(5):
         fe = numpy.random.choice(array)
-        print(fe, end=': ')
-        print(find_elem(fe, array))
+        print(fe, find_elem(fe, array), sep=': ')
