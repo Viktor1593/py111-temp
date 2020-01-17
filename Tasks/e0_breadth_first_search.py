@@ -60,9 +60,9 @@ if __name__ == '__main__':
 			('E', 'G')
 		]
 	)
-	start = 'A'
+	src = 'A'
 	dst = 'G'
 	graph.add_node('Z')
 	# print(graph.adj)
-	print(dfs_find(graph, start, dst, visited))
+	print(bfs_find(graph, src, dst))
 
