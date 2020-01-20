@@ -1,7 +1,8 @@
 from typing import Hashable, List
 import networkx as nx
+from collections import deque
 
-def dfs(g: nx.Graph, start_node: Hashable) -> List[Hashable]:
+def dfs(g: nx.Graph, start_node: Hashable, path = []) -> List[Hashable]:
 	"""
 	Do an depth-first search and returns list of nodes in the visited order
 
@@ -9,8 +10,13 @@ def dfs(g: nx.Graph, start_node: Hashable) -> List[Hashable]:
 	:param start_node: starting node of search
 	:return: list of nodes in the visited order
 	"""
-	print(g, start_node)
-	return list(g.nodes)
+	if start_node not in path:
+		path.append(start_node)
+	for n in g.adj[start_node]:
+		if n not in path:
+			path.append(n)
+			dfs(g, n, path)
+	return path
 
 def dfs_find(graph, src, dst, visited):
 	'''
@@ -35,24 +41,42 @@ def dfs_find(graph, src, dst, visited):
 
 
 if __name__ == '__main__':
+	# graph = nx.Graph()
+	# graph.add_nodes_from("ABCDEFG")
+	# graph.add_edges_from(
+	# 	[
+	# 		('A', 'B'),
+	# 		('A', 'C'),
+	# 		('B', 'D'),
+	# 		('B', 'E'),
+	# 		('C', 'F'),
+	# 		('E', 'G')
+	# 	]
+	# )
+	# start = 'A'
+	# dst = 'G'
+	# graph.add_node('Z')
+	# # print(graph.adj)
+	# # visited = {node: False for node in graph.nodes()}
+	# visited = []
+	# print(dfs_find(graph, start, dst, visited))
+	# print(visited)
+
+
 	graph = nx.Graph()
 	graph.add_nodes_from("ABCDEFG")
-	graph.add_edges_from(
-		[
-			('A', 'B'),
-			('A', 'C'),
-			('B', 'D'),
-			('B', 'E'),
-			('C', 'F'),
-			('E', 'G')
-		]
-	)
-	start = 'A'
-	dst = 'G'
-	graph.add_node('Z')
-	# print(graph.adj)
-	# visited = {node: False for node in graph.nodes()}
-	visited = []
-	print(dfs_find(graph, start, dst, visited))
-	print(visited)
+	graph.add_edges_from([
+		('A', 'B'),
+		('A', 'C'),
+		('B', 'D'),
+		('B', 'E'),
+		('C', 'F'),
+		('E', 'G'),
+	])
+	result = dfs(graph, 'A')
+	print(result)
+	# list('ABDEGCF'),
+	# list('ABEGDCF'),
+	# list('ACFBDEG'),
+	# list('ACFBEGD')
 
