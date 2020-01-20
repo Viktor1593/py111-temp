@@ -10,59 +10,48 @@ def bfs(g: nx.Graph, start_node: Hashable) -> List[Hashable]:
 	:param start_node: starting node for search
 	:return: list of nodes in the visited order
 	"""
-	print(g, start_node)
-	return list(g.nodes)
-
-
-def bfs_find(graph, src, dst):
-	'''
-
-	:param graph:
-	:param src:
-	:param dst:
-	:param visited:
-	:return:
-	'''
-	visited = []
+	path = []
 	nodes_queue = deque()
-	nodes_queue.appendleft(src)
-	# while True:
-	# 	for node in graph.adj[src]:
-	# 		if not node in visited:
-	# 			visited.append(src)
-	# 			if node == src:
-	# 				return visited
-					
+	nodes_queue.appendleft(start_node)
+	path.append(start_node)
+	while True:
+		node = nodes_queue.pop()
+		for n in g.adj[node]:
+			if n not in path:
+				path.append(n)
+				nodes_queue.appendleft(n)
+		if len(nodes_queue) == 0:
+			break
+	return path
 
-	if not src in visited:
-		visited.append(src)
-	# visited[src] = True
-	if src == dst:
-		return True
-	for node in graph.adj[src]:
-		if not node in visited:
-		# if not visited[node]:
-			if dfs_find(graph, node, dst, visited):
-				return True
-	return False
+
 
 
 if __name__ == '__main__':
 	graph = nx.Graph()
-	graph.add_nodes_from("ABCDEFG")
-	graph.add_edges_from(
-		[
-			('A', 'B'),
-			('A', 'C'),
-			('B', 'D'),
-			('B', 'E'),
-			('C', 'F'),
-			('E', 'G')
-		]
-	)
-	src = 'A'
-	dst = 'G'
-	graph.add_node('Z')
-	# print(graph.adj)
-	print(bfs_find(graph, src, dst))
+	graph.add_nodes_from("ABCDEFGHIJ")
+	graph.add_edges_from([
+		('A', 'B'),
+		('A', 'F'),
+		('B', 'G'),
+		('F', 'G'),
+		('G', 'C'),
+		('G', 'H'),
+		('G', 'I'),
+		('C', 'H'),
+		('I', 'H'),
+		('H', 'D'),
+		('H', 'E'),
+		('H', 'J'),
+		('E', 'D'),
+	])
+	result = bfs(graph, 'A')
+	print(graph.adj)
+	print(result) #ABFGCHIDEJ
+
+	# src = 'A'
+	# dst = 'G'
+	# graph.add_node('Z')
+	# # print(graph.adj)
+	# print(bfs_find(graph, src, dst))
 
