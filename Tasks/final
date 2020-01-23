@@ -1,0 +1,229 @@
+import re
+import networkx as nx
+import time
+import numpy as nm
+
+#task1
+# a = len(arr) - 1
+# out = list() # O(1)
+# while a > 0: #O(n)
+#     out.append(arr[a])  # O(1)
+#     a = a // 1.7 # O(1)
+# out.merge_sort() #O(nlogn)
+# O(n + nlogn)
+
+################## task 2
+def task2_run():
+    # task 2
+    people = [
+        'Ivanov',
+        'Sidorov',
+        'Petrov'
+    ]
+
+    counter = 5
+    N = 11
+    people = [random.randint(3, 7) for i in range(10)]
+    print(counter_syll(people, counter))
+
+def counter_syll(people, syll_count):
+    print(people)
+    people_sylls = split_to_sylls(people)
+    outers = []
+    while len(people) - 1 > len(outers):
+        counter = 0
+        for i in range(len(people)):
+            if i in outers:
+                continue
+            counter += people[i]
+            if counter > syll_count:
+                print('outer', i, people[i], sep=': ')
+                outers.append(i)
+                counter = 0
+
+    print(outers)
+    return list(filter(lambda x: x not in outers, list(range(len(people)))))[0]
+
+def split_to_sylls(people):
+    consonants = 'aeiouy'
+    vowels = 'bcdfghjklmnpqrstvwxz'
+    return people
+
+##################  task 3
+def task3_run():
+    graph = nx.Graph()
+    graph.add_nodes_from("ABCDEFG")
+    graph.add_edges_from(
+        [
+            ('A', 'B'),
+            ('B', 'C'),
+            ('C', 'D'),
+            ('F', 'G')
+        ]
+    )
+    print(sub_graph_count(graph))
+
+def dfs(g, start_node, path = []):
+    """
+    Do an depth-first search and returns list of nodes in the visited order
+    :param g: input graph
+    :param start_node: starting node of search
+    :return: list of nodes in the visited order
+    """
+    if start_node not in path:
+        path.append(start_node)
+    for n in g.adj[start_node]:
+        if n not in path:
+            path.append(n)
+            dfs(g, n, path)
+    return path
+
+
+def sub_graph_count(g):
+    node_count = len(g.nodes())
+    if node_count == 0:
+        return 0
+    visited = []
+    counter = 0
+    for node in g.nodes:
+        if node in visited:
+            continue
+        print(dfs(g, node, visited))
+        counter+=1
+    return counter
+
+################### task4
+def task4_run():
+    N = 5
+    mapping = [[random.randint(1, 10) for i in range(N)] for i in range(N)]
+    print(mapping)
+    print(build_path(mapping, (0,0), (2,2)))
+
+def build_path_rec(m, start, finish, path=[]):
+    if finish in path:
+        return None
+    print(finish)
+    if not(finish[0] in range(len(m)) and finish[1] in range(len(m[0]))):
+        return None
+    if not(start[0] in range(len(m)) and start[1] in range(len(m[0]))):
+        return None
+    if start == finish:
+        path.append(m[start[0], start[1]])
+        print(path)
+        return (start, m[start[0], start[1]])
+
+    res1 = build_path_rec(m, start, [finish[0]-1, finish[1]], path)
+    # res2 = build_path_rec(m, start, [finish[0]+1, finish[1]], path)
+    # res3 = build_path_rec(m, start, [finish[0], finish[1]+1], path)
+    # res4 = build_path_rec(m, start, [finish[0], finish[1]-1], path)
+    res2 = ([0, 0], float('inf'))
+    res3 = ([0, 0], float('inf'))
+    res4 = ([0, 0], float('inf'))
+    point, cost = get_min([res1, res2, res3, res4])
+    path.append(point)
+    print(path)
+    return (path, m[finish[0], finish[1]] + cost)
+
+def get_min(ps):
+    min = ([0, 0], float('inf'))
+    for p in ps:
+        if p is None:
+            continue
+        if p[1] < min(1):
+            min = p
+    return min
+
+
+def build_path(m, start, finish):
+    path = []
+    build_path_rec(m, start, finish, path)
+    return path
+
+
+
+################### task5
+def task5_run():
+    pass
+def cons(words):
+    pass
+    # for i in range(len(words[0])):
+
+
+################### task6
+def task6_run():
+    pass
+################### task7
+def task7_run():
+    arr = [random.randint(13, 25) for i in range(1000000)]
+    s = time.time()
+    quick_sort(arr)
+    nm.sort(arr, kind='mergesort')
+    print(time.time() - s)
+
+def quick_sort(container):
+    """
+    Sort input container with quick sort
+    :param container: container of elements to be sorted
+    :return: container sorted in ascending order
+    """
+    if len(container) <= 1:
+        return container
+    low = []
+    high = []
+    equal = []
+    base = container[0]
+    for i in range(len(container)):
+        if container[i] > base:
+            high.append(container[i])
+        elif container[i] < base:
+            low.append(container[i])
+        else:
+            equal.append(container[i])
+    low = quick_sort(low)
+    high = quick_sort(high)
+    return low + equal + high
+
+
+
+
+if __name__ == '__main__':
+    import random
+
+    # task2_run()
+    # task3_run()
+    # task4_run()
+    # task5_run()
+
+    times = []
+    N = 2000
+    for i in range(N):
+        fst = random.randint(0, 22)
+        scnd = random.randint(fst + 1, 23)
+        times.append((fst, scnd))
+
+    print("input: ", times)
+
+    start = time.time()
+    inc = []
+    for i in range(len(times)):
+        for j in range(i + 1, len(times)):
+            if times[i][0] < times[j][1] and times[i][1] > times[j][0]:
+                inc.append([times[i], times[j]])
+    print(inc)
+    print(time.time() - start)
+
+    start = time.time()
+    inc = []
+    set_inc = set()
+    for i in range(len(times)):
+        t_range = set(i for i in range(times[i][0], times[i][1] + 1))
+        # print("compare: ", set_inc, t_range, t_range & set_inc, sep='   ')
+        if t_range in set_inc:
+            inc.append(times[i])
+        set_inc |= t_range
+    print(inc)
+    print(set_inc)
+    print(time.time() - start)
+    # task7_run()
+
+
